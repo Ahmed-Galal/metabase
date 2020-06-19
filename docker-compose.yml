@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  db:
+    restart: always
+    image: mariadb:10.3
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_1
+      MYSQL_USER: test_1
+      MYSQL_PASSWORD: test_1
+  metabase:
+    restart: always
+    image: metabase/metabase
+    ports:
+      - "3033:3000"
+    depends_on:
+      - db
+    links:
+      - db:mysql
